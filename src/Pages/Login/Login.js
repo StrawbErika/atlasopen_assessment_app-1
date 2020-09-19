@@ -1,51 +1,53 @@
 import React, { useState, Component } from "react";
 import { useFirebaseApp } from "reactfire";
 import "firebase/auth";
-// import './Signup.css';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
-// const firebase = useFirebaseApp();
+// import './Signup.css';
 
 //TODO convert this to a functional component to use firebase hooks
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const firebase = useFirebaseApp();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    error: "",
+  });
 
+  // onChange function
   const handleChange = (e) => {
-    setError("");
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+      error: "",
+    });
   };
-  // handleChange = (e) => {
-  //     this.setState({
-  //       ...this.state,
-  //       [e.target.name]: e.target.value,
-  //       error: "",
-  //     });
-  //   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    //     .then(result => {
-    //         if (!result.user.emailVerified) {
-    //             this.setState({
-    //                 ...this.state,
-    //                 error: 'Please verify your email before to continue',
-    //             })
-    //             firebase.auth().signOut();
-    //         }
-    //     })
-    //     .catch(error => {
-    //         // Update the error
-    //         this.setState({
-    //             ...this.state,
-    //             error: error.message,
-    //         })
-    //     })
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then((result) => {
+        if (!result.user.emailVerified) {
+          setUser({
+            ...user,
+            error: "Please verify your email before to continue",
+          });
+          console.log(user.error);
+          firebase.auth().signOut();
+        }
+      })
+      .catch((error) => {
+        setUser({
+          ...user,
+          error: error.message,
+        });
+      });
   };
   return (
     <>
       <h1>Log In</h1>
-      <form onSubmit={() => alert("AGHHHH I CANT FIX THIS HELP ME")}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Email"
@@ -60,9 +62,16 @@ export default function Login() {
           onChange={handleChange}
         />
         <br />
-        <button type="submit">Log in</button>
+        <button
+          type="submit"
+          onClick={() => {
+            console.log(user);
+          }}
+        >
+          Log in
+        </button>
       </form>
-      {error && <h4>{error}</h4>}
+      {user.error && <h4>{user.error}</h4>}
     </>
   );
 }

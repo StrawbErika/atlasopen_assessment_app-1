@@ -9,6 +9,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   Link,
   useParams,
 } from "react-router-dom";
@@ -16,22 +17,25 @@ import {
 //TODO: Add stats dashboard
 function App() {
   const user = useUser();
+  console.log(user);
   return (
-    <div className="App">
-      {user && (
-        <>
-          <Router>
-            <Chat />
-          </Router>
-        </>
-      )}
-      {!user && (
-        <>
-          <Signup />
-          <Login />
-        </>
-      )}
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          {!user ? (
+            <div>
+              <Signup />
+              <Login />
+            </div>
+          ) : (
+            <Redirect to="/chat" />
+          )}
+        </Route>
+        <Route exact path="/chat">
+          {user ? <Chat /> : <Redirect to="/" />}
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
