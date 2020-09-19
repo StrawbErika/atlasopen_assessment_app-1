@@ -6,22 +6,28 @@ const Signup = () => {
   const axios = require("axios");
   // Import firebase
   const firebase = useFirebaseApp();
-
   const [dog, setDog] = useState("");
-  // User State
   const [user, setUser] = useState({
     nickname: "",
     email: "",
     password: "",
-    avatar: dog,
     error: "",
   });
+
+  useEffect(() => {
+    setDogImage();
+  });
+
+  async function setDogImage() {
+    let dogImage = await fetchDogImage();
+    setDog(dogImage);
+  }
 
   const fetchDogImage = async () => {
     let response = "";
     try {
       response = await axios.get("https://random.dog/woof.json");
-      return response.data.url;
+      return response.data.url.toString();
     } catch (err) {
       console.log(err);
     }
@@ -36,15 +42,6 @@ const Signup = () => {
     });
   };
 
-  useEffect(() => {
-    setDogImage();
-  });
-
-  async function setDogImage() {
-    let dogImage = await fetchDogImage();
-    setDog(dogImage);
-  }
-
   // Submit function (Create account)
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,6 +52,7 @@ const Signup = () => {
         // Update the nickname
         result.user.updateProfile({
           displayName: user.nickname,
+          photoURL: dog,
         });
 
         const myURL = { url: "http://localhost:3000/" };
@@ -80,6 +78,9 @@ const Signup = () => {
       })
       .catch((error) => {
         // Update the error
+        console.log(user.email);
+        console.log(user.password);
+        console.log(error);
         setUser({
           ...user,
           error: error.message,
@@ -112,14 +113,7 @@ const Signup = () => {
           onChange={handleChange}
         />
         <br />
-        <button
-          type="submit"
-          onClick={() => {
-            console.log("yeah still clicked dont worri");
-          }}
-        >
-          Sign Up
-        </button>
+        <button type="submit">Sign Up</button>
       </form>
       {user.error && <h4>{user.error}</h4>}
     </>
