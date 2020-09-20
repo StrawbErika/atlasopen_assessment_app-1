@@ -17,7 +17,7 @@ import {
 //TODO: Add stats dashboard
 function App() {
   const user = useUser();
-  console.log(user);
+
   return (
     <Router>
       <Switch>

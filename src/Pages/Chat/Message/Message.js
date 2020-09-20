@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Grid, Paper } from "@material-ui/core";
 
-export default function Message({ user, message, timestamp }) {
+export default function Message({ user, message, timestamp, rowDirection }) {
   const reformatDate = () => {
     const dateObject = new Date(timestamp * 1000);
     const splitDate = dateObject.toLocaleString().split(" "); //2019-12-9 10:30:15
@@ -12,7 +12,6 @@ export default function Message({ user, message, timestamp }) {
     const formattedDate = splitDate[1] + " " + month + " " + day + ", " + year;
     return formattedDate;
   };
-
   return (
     <Grid
       container
@@ -26,7 +25,7 @@ export default function Message({ user, message, timestamp }) {
         {user.displayName}
       </Grid>
       <Grid item xs={12}>
-        <Grid container direction="row">
+        <Grid container direction={rowDirection}>
           <img
             src={user.photoURL}
             alt={user.displayName}

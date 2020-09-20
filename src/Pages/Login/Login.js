@@ -33,8 +33,6 @@ export default function Login() {
             ...user,
             error: "Please verify your email before to continue",
           });
-          console.log(user.error);
-          firebase.auth().signOut();
         }
       })
       .catch((error) => {
@@ -62,14 +60,7 @@ export default function Login() {
           onChange={handleChange}
         />
         <br />
-        <button
-          type="submit"
-          onClick={() => {
-            console.log(user);
-          }}
-        >
-          Log in
-        </button>
+        <button type="submit">Log in</button>
       </form>
       {user.error && <h4>{user.error}</h4>}
     </>
