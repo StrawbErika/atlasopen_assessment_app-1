@@ -19,19 +19,22 @@ import {
 import { TextField, Button, Grid } from "@material-ui/core";
 
 export default function Chat() {
+  // console.log(_.sortBy(msg, [timestamp.unixTimestamp]));
   // TODO: Display messages from chat and submit messages
   const user = useUser();
   const { v4: uuidv4 } = require("uuid");
+  const [newMessage, setNewMessage] = useState("");
 
   const messageCollection = useFirestore().collection("messages");
   const msg = useFirestoreCollectionData(messageCollection);
 
-  // const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
   const handleChange = (e) => {
     setNewMessage(e.target.value);
   };
-
+  const sortMessages = () => {
+    // return _.sortBy(msg, "timestamp");
+  };
+  console.log(sortMessages);
   return (
     <div>
       <h1>Chat Page</h1>
@@ -47,7 +50,12 @@ export default function Chat() {
           <div>
             {msg.reverse().map((message, index) => {
               return (
-                <Message key={index} user={user} message={message.message} />
+                <Message
+                  key={index}
+                  user={user}
+                  message={message.message}
+                  timestamp={message.timestamp}
+                />
               );
             })}
           </div>
@@ -59,9 +67,11 @@ export default function Chat() {
           <Button
             variant="contained"
             onClick={() => {
-              messageCollection
-                .doc(uuidv4())
-                .set({ user: user.uid, message: newMessage });
+              messageCollection.doc(uuidv4()).set({
+                user: user.uid,
+                message: newMessage,
+                timestamp: Math.floor(Date.now() / 1000),
+              });
             }}
           >
             Submit

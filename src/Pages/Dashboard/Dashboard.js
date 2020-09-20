@@ -3,5 +3,9 @@ import { useFirebaseApp } from "reactfire";
 import "firebase/auth";
 
 export default function Dashboard() {
-  return <></>;
+  return (
+    <>
+      <div></div>
+    </>
+  );
 }
