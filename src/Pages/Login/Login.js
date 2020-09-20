@@ -1,9 +1,6 @@
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 import { useFirebaseApp } from "reactfire";
 import "firebase/auth";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-
-// import './Signup.css';
 
 //TODO convert this to a functional component to use firebase hooks
 export default function Login() {

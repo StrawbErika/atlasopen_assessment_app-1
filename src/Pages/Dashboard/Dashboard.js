@@ -1,5 +1,5 @@
-import React, { useState, Component } from "react";
-import { useUser, useFirestoreCollectionData, useFirestore } from "reactfire";
+import React from "react";
+import { useFirestoreCollectionData, useFirestore } from "reactfire";
 import { Grid, Paper } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styles from "./style.module.scss";

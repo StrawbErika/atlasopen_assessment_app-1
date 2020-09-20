@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Signup.css";
-import {
-  useFirebaseApp,
-  useUser,
-  useFirestoreCollectionData,
-  useFirestore,
-} from "reactfire";
+import { useFirebaseApp, useFirestore } from "reactfire";
 
 const Signup = () => {
   const axios = require("axios");
@@ -13,9 +8,6 @@ const Signup = () => {
   const { v4: uuidv4 } = require("uuid");
 
   const userCollection = useFirestore().collection("users");
-  const users = useFirestoreCollectionData(userCollection);
-
-  // const [id, setId] = useState("");
 
   const [dog, setDog] = useState("");
   const [user, setUser] = useState({
@@ -25,12 +17,6 @@ const Signup = () => {
     error: "",
   });
 
-  // @TODO: WARNING! WILL RUN EVERY RENDER.
-  // useEffect(() => {
-  //   setDogImage();
-  // });
-
-  // @TODO\]=======================================0-pol to fix, add an empty array as dependency so it wil only run once (on initial load)
   useEffect(() => {
     getDogImage();
   }, []);
@@ -45,15 +31,14 @@ const Signup = () => {
     let allowed = ["png", "jpg", "jpeg", "PNG", "JPG", "JPEG"];
     let x = 0;
     let approved = false;
-    while (approved != true) {
-      if (split[split.length - 1] === allowed[x]) {
+    while (x < allowed.length) {
+      if (split.includes(allowed[x])) {
         approved = true;
       }
       x = x + 1;
     }
     return approved;
   };
-
   const fetchDogImage = async () => {
     let response = "";
     let dogImage = "";
@@ -63,8 +48,7 @@ const Signup = () => {
     } catch (err) {
       console.log(err);
     }
-
-    while (checkDog(dogImage) != true) {
+    while (checkDog(dogImage) !== true) {
       try {
         response = await axios.get("https://random.dog/woof.json");
         dogImage = response.data.url.toString();

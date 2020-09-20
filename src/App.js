@@ -10,8 +10,6 @@ import {
   Switch,
   Route,
   Redirect,
-  Link,
-  useParams,
 } from "react-router-dom";
 
 //TODO: Add stats dashboard

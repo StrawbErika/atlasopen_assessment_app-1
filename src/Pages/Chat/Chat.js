@@ -17,7 +17,17 @@ export default function Chat() {
   const msg = useFirestoreCollectionData(messageCollection);
   const userCollection = useFirestore().collection("users");
   const userDB = useFirestoreCollectionData(userCollection);
+  useEffect(() => {
+    updateScroll();
+    // setInterval(updateScroll, 1000);
+  }, []);
 
+  const updateScroll = () => {
+    var element = document.getElementById("chat");
+    if (element) {
+      element.scrollTo(0, element.scrollHeight);
+    }
+  };
   const handleChange = (e) => {
     setNewMessage(e.target.value);
   };
@@ -35,58 +45,40 @@ export default function Chat() {
           </Grid>
         </Grid>
       </div>
-      <div className={styles.chatContainer}>
+      <div className={styles.chatContainer} id="chat">
         {user.emailVerified ? (
           <Grid container direction="column" justify="space-evenly">
             {msg.length < 1 ? (
               <div></div>
             ) : (
-              <div>
-                {_.sortBy(msg, "timestamp").map((message, index) => {
-                  if (message.user === user.uid) {
-                    return (
-                      <Grid
-                        key={index}
-                        container
-                        direction="column"
-                        justify="space-evenly"
-                        alignItems="flex-start"
-                      >
-                        <Grid>
-                          <Message
-                            user={user}
-                            message={message}
-                            rowDirection={"row"}
-                            alignment={"flex-start"}
-                          />
-                        </Grid>
-                      </Grid>
-                    );
-                  } else {
-                    return (
-                      <Grid
-                        key={index}
-                        container
-                        direction="column"
-                        justify="space-evenly"
-                        alignItems="flex-end"
-                      >
-                        <Grid>
-                          <Message
-                            user={
-                              userDB.filter(
-                                (users) => users.id === message.user
-                              )[0]
-                            }
-                            message={message}
-                            rowDirection={"row-reverse"}
-                            alignment={"flex-end"}
-                          />
-                        </Grid>
-                      </Grid>
-                    );
-                  }
-                })}
+              <div className={styles.messages}>
+                {_.sortBy(msg, "timestamp")
+                  .reverse()
+                  .map((message, index) => {
+                    if (message.user === user.uid) {
+                      return (
+                        <Message
+                          user={user}
+                          message={message}
+                          rowDirection={"row"}
+                          alignment={"flex-start"}
+                        />
+                      );
+                    } else {
+                      return (
+                        <Message
+                          user={
+                            userDB.filter(
+                              (users) => users.id === message.user
+                            )[0]
+                          }
+                          message={message}
+                          rowDirection={"row-reverse"}
+                          alignment={"flex-end"}
+                        />
+                      );
+                    }
+                  })}
               </div>
             )}
           </Grid>

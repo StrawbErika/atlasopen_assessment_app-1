@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./style.module.scss";
 import { Grid, Paper } from "@material-ui/core";
 
@@ -19,7 +19,6 @@ export default function Message({ user, message, rowDirection, alignment }) {
         direction="column"
         justify="space-evenly"
         alignItems={alignment}
-        container
         spacing={1}
       >
         <Grid item xs={12}>
@@ -27,11 +26,9 @@ export default function Message({ user, message, rowDirection, alignment }) {
         </Grid>
         <Grid item xs={12}>
           <Grid container direction={rowDirection}>
-            <img
-              src={user.photoURL}
-              alt={user.displayName}
-              className={styles.userImg}
-            />
+            <div className={styles.imgContainer}>
+              <img src={user.photoURL} alt={user.displayName} />
+            </div>
             <Paper className={styles.message}> {message.message} </Paper>
           </Grid>
         </Grid>
