@@ -2,7 +2,7 @@ import React from "react";
 import Signup from "./Pages/Signup/Signup";
 import Login from "./Pages/Login/Login";
 import Chat from "./Pages/Chat/Chat";
-import Logout from "./Pages/Login/Logout";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 import { useUser } from "reactfire";
 import "./App.css";
 import {
@@ -33,6 +33,9 @@ function App() {
         </Route>
         <Route exact path="/chat">
           {user ? <Chat /> : <Redirect to="/" />}
+        </Route>
+        <Route exact path="/dashboard">
+          {user ? <Dashboard /> : <Redirect to="/" />}
         </Route>
       </Switch>
     </Router>
