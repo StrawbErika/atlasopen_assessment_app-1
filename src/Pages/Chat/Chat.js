@@ -17,6 +17,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import { TextField, Button, Grid } from "@material-ui/core";
+import _ from "lodash";
 
 export default function Chat() {
   // console.log(_.sortBy(msg, [timestamp.unixTimestamp]));
@@ -31,10 +32,6 @@ export default function Chat() {
   const handleChange = (e) => {
     setNewMessage(e.target.value);
   };
-  const sortMessages = () => {
-    // return _.sortBy(msg, "timestamp");
-  };
-  console.log(sortMessages);
   return (
     <div>
       <h1>Chat Page</h1>
@@ -48,7 +45,7 @@ export default function Chat() {
           <div></div>
         ) : (
           <div>
-            {msg.reverse().map((message, index) => {
+            {_.sortBy(msg, "timestamp").map((message, index) => {
               return (
                 <Message
                   key={index}
