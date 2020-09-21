@@ -34,6 +34,16 @@
       // letter-spacing: 1px;
       flex-direction: column;
     }
+    @media only screen and (max-width: 425px) {
+      .message {
+        max-width: 250px;
+      }
+    }
+    @media only screen and (max-width: 375px) {
+      .message {
+        max-width: 200px;
+      }
+    }
     .timestamp {
       margin: 0px;
       opacity: 0;

@@ -33,15 +33,23 @@ export default function Message({ user, message, messageStyle }) {
             >
               <img src={user.photoURL} alt={user.displayName} />
             </div>
-            <Paper
-              elevation={0}
-              style={{ backgroundColor: messageStyle.color }}
-              className={styles.message}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: `${messageStyle.alignment}`,
+              }}
             >
-              {message.message}
-            </Paper>
+              <Paper
+                elevation={0}
+                style={{ backgroundColor: messageStyle.color }}
+                className={styles.message}
+              >
+                {message.message}
+              </Paper>
+              <p className={styles.timestamp}>{reformatDate()}</p>
+            </div>
           </Grid>
-          <p className={styles.timestamp}>{reformatDate()}</p>
         </Grid>
       </Grid>
     </div>

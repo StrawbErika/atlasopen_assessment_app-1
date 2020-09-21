@@ -46,11 +46,11 @@ export default function Chat() {
       <div className={styles.navBar}>
         <Grid container direction="row" justify="space-between">
           <Grid>
-            <h1>Chat Page of {user.displayName}</h1>
+            <p>Chat page of {user.displayName}</p>
           </Grid>
           <Grid>
             <Link to="/dashboard">
-              <h1>Dashboard</h1>
+              <p>Dashboard</p>
             </Link>
           </Grid>
         </Grid>

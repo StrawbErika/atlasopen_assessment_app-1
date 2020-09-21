@@ -1,10 +1,24 @@
 .chatPage {
   .navBar {
-    padding: 0px 20px 0px 20px;
+    padding: 20px 20px 20px 20px;
+    p {
+      font-size: 35px;
+      margin: 0px;
+    }
+    @media only screen and (max-width: 425px) {
+      p {
+        font-size: 25px;
+      }
+    }
+    @media only screen and (max-width: 375px) {
+      p {
+        font-size: 15px;
+      }
+    }
   }
   .chatContainer {
     padding: 10px 20px 10px 20px;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 250px);
     overflow-y: auto;
   }
   .disableChats {
@@ -22,6 +36,16 @@
     .message {
       margin: 20px;
       width: 90vw;
+    }
+    @media only screen and (max-width: 425px) {
+      .message {
+        width: 80vw;
+      }
+    }
+    @media only screen and (max-width: 375px) {
+      .message {
+        width: 70vw;
+      }
     }
   }
   .sendButton {
