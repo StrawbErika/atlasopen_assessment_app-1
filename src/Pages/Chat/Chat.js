@@ -19,7 +19,6 @@ export default function Chat() {
   const userDB = useFirestoreCollectionData(userCollection);
   useEffect(() => {
     updateScroll();
-    // setInterval(updateScroll, 1000);
   }, []);
 
   const updateScroll = () => {
@@ -28,9 +27,7 @@ export default function Chat() {
       element.scrollTo(0, element.scrollHeight);
     }
   };
-  const handleChange = (e) => {
-    setNewMessage(e.target.value);
-  };
+
   return (
     <div className={styles.chatPage}>
       <div className={styles.navBar}>
@@ -47,61 +44,88 @@ export default function Chat() {
       </div>
       <div className={styles.chatContainer} id="chat">
         {user.emailVerified ? (
-          <Grid container direction="column" justify="space-evenly">
+          <div>
             {msg.length < 1 ? (
               <div></div>
             ) : (
-              <div className={styles.messages}>
+              <Grid container direction="column-reverse">
                 {_.sortBy(msg, "timestamp")
                   .reverse()
                   .map((message, index) => {
                     if (message.user === user.uid) {
                       return (
-                        <Message
-                          user={user}
-                          message={message}
-                          rowDirection={"row"}
-                          alignment={"flex-start"}
-                        />
+                        <Grid key={index}>
+                          <Message
+                            user={user}
+                            message={message}
+                            messageStyle={{
+                              rowDirection: "row-reverse",
+                              alignment: "flex-end",
+                              marginDirection: "marginLeft",
+                              color: "pink",
+                            }}
+                          />
+                        </Grid>
                       );
                     } else {
                       return (
-                        <Message
-                          user={
-                            userDB.filter(
-                              (users) => users.id === message.user
-                            )[0]
-                          }
-                          message={message}
-                          rowDirection={"row-reverse"}
-                          alignment={"flex-end"}
-                        />
+                        <Grid key={index}>
+                          <Message
+                            user={
+                              userDB.filter(
+                                (users) => users.id === message.user
+                              )[0]
+                            }
+                            message={message}
+                            messageStyle={{
+                              rowDirection: "row",
+                              alignment: "flex-start",
+                              marginDirection: "marginRight",
+                              color: "#f1f0f0",
+                            }}
+                          />
+                        </Grid>
                       );
                     }
                   })}
-              </div>
+              </Grid>
             )}
-          </Grid>
+          </div>
         ) : (
-          <div> Yeah verify ur email bruh</div>
+          <div> Yeah verify ur email bruh then refresh</div>
         )}
       </div>
-      <Grid md={12}>
-        <TextField onChange={handleChange} />
-      </Grid>
-      <Grid md={12}>
-        <Button
-          variant="contained"
-          onClick={() => {
-            messageCollection.doc(uuidv4()).set({
-              user: user.uid,
-              message: newMessage,
-              timestamp: Math.floor(Date.now() / 1000),
-            });
-          }}
-        >
-          Submit
-        </Button>
+      <Grid container direction="column" justify="space-evenly" spacing={1}>
+        <Grid>
+          <TextField
+            id="outlined-basic"
+            label="Outlined"
+            variant="outlined"
+            value={newMessage}
+            onChange={(e) => {
+              setNewMessage(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid>
+          <Grid>
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (newMessage !== "") {
+                  messageCollection.doc(uuidv4()).set({
+                    user: user.uid,
+                    message: newMessage,
+                    timestamp: Math.floor(Date.now() / 1000),
+                  });
+                  setNewMessage("");
+                }
+              }}
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Logout />

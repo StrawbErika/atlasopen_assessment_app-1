@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./style.module.scss";
 import { Grid, Paper } from "@material-ui/core";
 
-export default function Message({ user, message, rowDirection, alignment }) {
+export default function Message({ user, message, messageStyle }) {
   const reformatDate = () => {
     const dateObject = new Date(message.timestamp * 1000);
     const splitDate = dateObject.toLocaleString().split(" "); //2019-12-9 10:30:15
@@ -18,21 +18,30 @@ export default function Message({ user, message, rowDirection, alignment }) {
         container
         direction="column"
         justify="space-evenly"
-        alignItems={alignment}
+        alignItems={messageStyle.alignment}
         spacing={1}
       >
         <Grid item xs={12}>
-          {user.displayName}
+          <p className={styles.displayName}>{user.displayName}</p>
         </Grid>
-        <Grid item xs={12}>
-          <Grid container direction={rowDirection}>
-            <div className={styles.imgContainer}>
+        <Grid item xs={12} className={styles.wholeMessage}>
+          <Grid container direction={messageStyle.rowDirection}>
+            <div
+              className={styles.imgContainer}
+              style={{ [messageStyle.marginDirection]: "10px" }}
+            >
               <img src={user.photoURL} alt={user.displayName} />
             </div>
-            <Paper className={styles.message}> {message.message} </Paper>
+            <Paper
+              elevation={0}
+              style={{ backgroundColor: messageStyle.color }}
+              className={styles.message}
+            >
+              {message.message}
+            </Paper>
           </Grid>
+          <p className={styles.timestamp}>{reformatDate()}</p>
         </Grid>
-        {reformatDate()}
       </Grid>
     </div>
   );

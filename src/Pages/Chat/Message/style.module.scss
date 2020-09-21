@@ -1,32 +1,48 @@
 .messageContainer {
-  padding: 10px 0px 10px 0px;
-  .imgContainer {
-    height: 100px;
-    width: 100px;
-    z-index: 100;
-    overflow: hidden;
-    margin: 10px;
-    position: relative;
+  .displayName {
+    margin: 0px;
+    opacity: 0.7;
+  }
+  .wholeMessage {
+    .imgContainer {
+      height: 50px;
+      width: 50px;
+      z-index: 100;
+      overflow: hidden;
+      position: relative;
+      img {
+        position: absolute;
+        left: -1000%;
+        right: -1000%;
+        top: -1000%;
+        bottom: -1000%;
+        margin: auto;
+        min-height: 100%;
+        min-width: 100%;
+        height: 100%;
+      }
+    }
 
-    img {
-      position: absolute;
-      left: -1000%;
-      right: -1000%;
-      top: -1000%;
-      bottom: -1000%;
-      margin: auto;
-      min-height: 100%;
-      min-width: 100%;
-      height: 100%;
+    .message {
+      max-width: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 10px 10px 10px;
+      text-align: left;
+      border-radius: 20px;
+      // letter-spacing: 1px;
+      flex-direction: column;
+    }
+    .timestamp {
+      margin: 0px;
+      opacity: 0;
+      font-size: 15px;
     }
   }
-
-  .message {
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 10px 10px 10px;
-    text-align: left;
+  .wholeMessage:hover {
+    .timestamp {
+      opacity: 0.7;
+    }
   }
 }
