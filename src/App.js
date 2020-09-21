@@ -1,6 +1,5 @@
 import React from "react";
-import Signup from "./Pages/Signup/Signup";
-import Login from "./Pages/Login/Login";
+import Welcome from "./Pages/Welcome/Welcome";
 import Chat from "./Pages/Chat/Chat";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { useUser } from "reactfire";
@@ -22,8 +21,7 @@ function App() {
         <Route exact path="/">
           {!user ? (
             <div>
-              <Signup />
-              <Login />
+              <Welcome />
             </div>
           ) : (
             <Redirect to="/chat" />

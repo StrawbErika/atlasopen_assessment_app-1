@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./Signup.css";
+import styles from "./style.module.scss";
 import { useFirebaseApp, useFirestore } from "reactfire";
+import { TextField, Button } from "@material-ui/core";
 
 const Signup = () => {
   const axios = require("axios");
@@ -19,7 +20,7 @@ const Signup = () => {
 
   useEffect(() => {
     getDogImage();
-  }, []);
+  }, [getDogImage]);
 
   async function getDogImage() {
     let dogImage = await fetchDogImage();
@@ -76,15 +77,12 @@ const Signup = () => {
       const createdUser = await firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password);
-
       // Update the nickname
       createdUser.user.updateProfile({
         displayName: user.nickname,
         photoURL: dog,
       });
-
       await createdUser.user.sendEmailVerification();
-
       setUser({
         ...user,
         verifyEmail: `Welcome ${user.nickname}. To continue please verify your email.`,
@@ -96,9 +94,6 @@ const Signup = () => {
         photoURL: dog,
         displayName: user.nickname,
       });
-
-      // Sign Out the user.
-      // firebase.auth().signOut();
     } catch (error) {
       console.log("error!");
       console.error(error);
@@ -112,34 +107,43 @@ const Signup = () => {
   };
 
   return (
-    <>
+    <div className={styles.signUp}>
       <h1>Sign up</h1>
-      <form onSubmit={handleSubmit}>
-        <input
+
+      <form autoComplete="off" onSubmit={handleSubmit} className={styles.form}>
+        <TextField
+          className={styles.input}
+          id="outlined-basic"
+          label="Nickname"
+          variant="outlined"
           type="text"
-          placeholder="Nickname"
           name="nickname"
           onChange={handleChange}
         />
-        <br />
-        <input
+        <TextField
+          className={styles.input}
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
           type="text"
-          placeholder="Email"
           name="email"
           onChange={handleChange}
         />
-        <br />
-        <input
+        <TextField
+          className={styles.input}
+          id="outlined-basic"
+          label="Password"
+          variant="outlined"
           type="password"
-          placeholder="Password"
           name="password"
           onChange={handleChange}
         />
-        <br />
-        <button type="submit">Sign Up</button>
+        <Button variant="outlined" color="primary" type="submit">
+          Sign Up
+        </Button>
       </form>
       {user.error && <h4>{user.error}</h4>}
-    </>
+    </div>
   );
 };
 

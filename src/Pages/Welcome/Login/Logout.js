@@ -3,7 +3,6 @@ import { useFirebaseApp } from "reactfire";
 import {
   Button,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
@@ -25,10 +24,10 @@ const Logout = () => {
     <>
       <Button
         style={{ marginLeft: "20px" }}
-        variant="outlined"
         onClick={() => {
           setOpen(true);
         }}
+        variant="outlined"
         color="primary"
       >
         Log Out

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useUser, useFirestoreCollectionData, useFirestore } from "reactfire";
-import Logout from "./../Login/Logout";
+import Logout from "./../Welcome/Login/Logout";
 import Message from "./Message/Message";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
@@ -56,70 +56,66 @@ export default function Chat() {
         </Grid>
       </div>
       <div className={styles.chatContainer} id="chat">
-        {user.emailVerified ? (
-          <div>
-            {msg.length < 1 ? (
-              <div></div>
-            ) : (
-              <Grid container direction="column-reverse">
-                {_.sortBy(msg, "timestamp")
-                  .reverse()
-                  .map((message, index) => {
-                    if (message.user === user.uid) {
-                      return (
-                        <Grid key={index}>
-                          <Message
-                            user={user}
-                            message={message}
-                            messageStyle={{
-                              rowDirection: "row-reverse",
-                              alignment: "flex-end",
-                              marginDirection: "marginLeft",
-                              color: "pink",
-                            }}
-                          />
-                        </Grid>
-                      );
-                    } else {
-                      return (
-                        <Grid key={index}>
-                          <Message
-                            user={
-                              userDB.filter(
-                                (users) => users.id === message.user
-                              )[0]
-                            }
-                            message={message}
-                            messageStyle={{
-                              rowDirection: "row",
-                              alignment: "flex-start",
-                              marginDirection: "marginRight",
-                              color: "#f1f0f0",
-                            }}
-                          />
-                        </Grid>
-                      );
-                    }
-                  })}
-              </Grid>
-            )}
-          </div>
+        {msg.length < 1 ? (
+          <div> No messages here! </div>
         ) : (
-          <div> Yeah verify ur email bruh then refresh</div>
+          <Grid container direction="column-reverse">
+            {_.sortBy(msg, "timestamp")
+              .reverse()
+              .map((message, index) => {
+                if (message.user === user.uid) {
+                  return (
+                    <Grid key={index}>
+                      <Message
+                        user={user}
+                        message={message}
+                        messageStyle={{
+                          rowDirection: "row-reverse",
+                          alignment: "flex-end",
+                          marginDirection: "marginLeft",
+                          color: "pink",
+                        }}
+                      />
+                    </Grid>
+                  );
+                } else {
+                  return (
+                    <Grid key={index}>
+                      <Message
+                        user={
+                          userDB.filter((users) => users.id === message.user)[0]
+                        }
+                        message={message}
+                        messageStyle={{
+                          rowDirection: "row",
+                          alignment: "flex-start",
+                          marginDirection: "marginRight",
+                          color: "#f1f0f0",
+                        }}
+                      />
+                    </Grid>
+                  );
+                }
+              })}
+          </Grid>
         )}
       </div>
       <Grid container direction="row" alignItems="center">
-        {/* justify="flex-end" */}
         <Grid>
           <form
-            autocomplete="off"
+            autoComplete="off"
             onSubmit={handleSubmit}
             className={styles.form}
           >
             <TextField
+              disabled={!user.emailVerified}
               className={styles.message}
               id="outlined-basic"
-              label="Outlined"
+              label={
+                user.emailVerified
+                  ? "Message"
+                  : "Kindly verify your email and refresh!"
+              }
               variant="outlined"
               value={newMessage}
               onChange={(e) => {
