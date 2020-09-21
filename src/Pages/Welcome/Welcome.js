@@ -15,7 +15,7 @@ export default function Welcome() {
   return (
     <div className={styles.welcome}>
       <div className={styles.tab}>
-        <Paper square>
+        <Paper square style={{ backgroundColor: "#B7F8DB" }}>
           <Tabs
             value={value}
             onChange={handleChange}

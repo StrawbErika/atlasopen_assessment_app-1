@@ -1,12 +1,32 @@
 .navBar {
-  padding: 0px 20px 0px 20px;
+  padding: 20px;
+  p {
+    font-size: 35px;
+    margin: 0px;
+  }
+  p:hover {
+    color: black;
+  }
+
+  @media only screen and (max-width: 425px) {
+    p {
+      font-size: 25px;
+    }
+  }
+  @media only screen and (max-width: 375px) {
+    p {
+      font-size: 15px;
+    }
+  }
 }
 .title {
-  opacity: 0.8;
+  opacity: 0.7;
+  letter-spacing: 5px;
+  font-size: 35px;
 }
 .paper {
   font-size: 30px;
-  width: 500px;
+  width: 400px;
   height: 300px;
   display: flex;
   flex-direction: column;
@@ -15,10 +35,57 @@
   margin: 20px;
   .name {
     margin-bottom: 20px;
-    font-size: 50px;
+    font-size: 35px;
+    letter-spacing: 3px;
+
     opacity: 0.6;
   }
   p {
     margin: 0px;
   }
 }
+
+@media only screen and (max-width: 425px) {
+  .title {
+    font-size: 25px !important;
+  }
+  .paper {
+    width: 300px !important;
+    height: 200px !important;
+    .name {
+      font-size: 25px !important;
+    }
+    p {
+      font-size: 25px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .title {
+    font-size: 15px !important;
+  }
+  .paper {
+    width: 250px !important;
+    height: 150px !important;
+    .name {
+      font-size: 15px !important;
+    }
+    p {
+      font-size: 15px !important;
+    }
+  }
+}
+
+// @media only screen and (max-width: 320px) {
+//   .title {
+//     font-size: 10px !important;
+//   }
+//   .paper {
+//     width: 200px !important;
+//     height: 100px !important;
+//     .name {
+//       font-size: 10px !important;
+//     }
+//   }
+// }

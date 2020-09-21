@@ -49,7 +49,10 @@ export default function Chat() {
             <p>Chat page of {user.displayName}</p>
           </Grid>
           <Grid>
-            <Link to="/dashboard">
+            <Link
+              style={{ textDecoration: "none", color: "#B7F8DB" }}
+              to="/dashboard"
+            >
               <p>Dashboard</p>
             </Link>
           </Grid>
@@ -73,7 +76,7 @@ export default function Chat() {
                           rowDirection: "row-reverse",
                           alignment: "flex-end",
                           marginDirection: "marginLeft",
-                          color: "pink",
+                          color: " #B7F8DB",
                         }}
                       />
                     </Grid>
@@ -129,7 +132,7 @@ export default function Chat() {
             fontSize="large"
             onClick={handleSubmit}
             className={styles.sendButton}
-            style={{ color: "pink" }}
+            style={{ color: " #B7F8DB" }}
           />
         </Grid>
       </Grid>

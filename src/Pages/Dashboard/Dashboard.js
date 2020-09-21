@@ -16,18 +16,21 @@ export default function Dashboard() {
       <div className={styles.navBar}>
         <Grid container direction="row" justify="space-between">
           <Grid>
-            <h1>Dashboard</h1>
+            <p>Dashboard</p>
           </Grid>
           <Grid>
-            <Link to="/chat">
-              <h1>Chat Page</h1>
+            <Link
+              style={{ textDecoration: "none", color: "#B7F8DB" }}
+              to="/chat"
+            >
+              <p>Chat Page</p>
             </Link>
           </Grid>
         </Grid>
       </div>
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid>
-          <h2 className={styles.title}>Analytics</h2>
+          <p className={styles.title}>Analytics</p>
         </Grid>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid>

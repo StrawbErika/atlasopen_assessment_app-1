@@ -23,7 +23,7 @@ const Logout = () => {
   return (
     <>
       <Button
-        style={{ marginLeft: "20px" }}
+        style={{ marginLeft: "20px", marginTop: "-10px" }}
         onClick={() => {
           setOpen(true);
         }}

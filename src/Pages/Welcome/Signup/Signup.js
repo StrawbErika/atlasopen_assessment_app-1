@@ -108,7 +108,7 @@ const Signup = () => {
 
   return (
     <div className={styles.signUp}>
-      <h1>Sign up</h1>
+      <p>Sign up</p>
 
       <form autoComplete="off" onSubmit={handleSubmit} className={styles.form}>
         <TextField

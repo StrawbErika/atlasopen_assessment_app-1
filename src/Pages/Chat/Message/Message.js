@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./style.module.scss";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, Avatar } from "@material-ui/core";
 
 export default function Message({ user, message, messageStyle }) {
   // TODO: Check if prev message same user, if yes, dont show user
@@ -28,10 +28,11 @@ export default function Message({ user, message, messageStyle }) {
         <Grid item xs={12} className={styles.wholeMessage}>
           <Grid container direction={messageStyle.rowDirection}>
             <div
-              className={styles.imgContainer}
+              // className={styles.imgContainer}
               style={{ [messageStyle.marginDirection]: "10px" }}
             >
-              <img src={user.photoURL} alt={user.displayName} />
+              <Avatar src={user.photoURL} alt={user.displayName} />
+              {/* <img src={user.photoURL} alt={user.displayName} /> */}
             </div>
             <div
               style={{

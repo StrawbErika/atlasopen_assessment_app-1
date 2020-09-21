@@ -1,9 +1,12 @@
 .chatPage {
   .navBar {
-    padding: 20px 20px 20px 20px;
+    padding: 20px;
     p {
       font-size: 35px;
       margin: 0px;
+    }
+    p:hover {
+      color: black;
     }
     @media only screen and (max-width: 425px) {
       p {
@@ -18,7 +21,7 @@
   }
   .chatContainer {
     padding: 10px 20px 10px 20px;
-    max-height: calc(100vh - 250px);
+    max-height: calc(100vh - 230px);
     overflow-y: auto;
   }
   .disableChats {
@@ -30,8 +33,9 @@
     z-index: 10000;
   }
   .form {
-    margin: 0px;
-    padding: 0px;
+    margin-top: -10px;
+    // margin: 0px;
+    // padding: 0px;
 
     .message {
       margin: 20px;
