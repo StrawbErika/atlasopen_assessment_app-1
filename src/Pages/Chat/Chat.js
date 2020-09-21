@@ -4,7 +4,9 @@ import Logout from "./../Login/Logout";
 import Message from "./Message/Message";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
-import { TextField, Button, Grid } from "@material-ui/core";
+import { TextField, Grid } from "@material-ui/core";
+import { SendRounded } from "@material-ui/icons";
+
 import "firebase/auth";
 import _ from "lodash";
 
@@ -27,13 +29,24 @@ export default function Chat() {
       element.scrollTo(0, element.scrollHeight);
     }
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (newMessage !== "") {
+      messageCollection.doc(uuidv4()).set({
+        user: user.uid,
+        message: newMessage,
+        timestamp: Math.floor(Date.now() / 1000),
+      });
+      setNewMessage("");
+    }
+  };
 
   return (
     <div className={styles.chatPage}>
       <div className={styles.navBar}>
         <Grid container direction="row" justify="space-between">
           <Grid>
-            <h1>Chat Page</h1>
+            <h1>Chat Page of {user.displayName}</h1>
           </Grid>
           <Grid>
             <Link to="/dashboard">
@@ -95,36 +108,33 @@ export default function Chat() {
           <div> Yeah verify ur email bruh then refresh</div>
         )}
       </div>
-      <Grid container direction="column" justify="space-evenly" spacing={1}>
+      <Grid container direction="row" alignItems="center">
+        {/* justify="flex-end" */}
         <Grid>
-          <TextField
-            id="outlined-basic"
-            label="Outlined"
-            variant="outlined"
-            value={newMessage}
-            onChange={(e) => {
-              setNewMessage(e.target.value);
-            }}
-          />
+          <form
+            autocomplete="off"
+            onSubmit={handleSubmit}
+            className={styles.form}
+          >
+            <TextField
+              className={styles.message}
+              id="outlined-basic"
+              label="Outlined"
+              variant="outlined"
+              value={newMessage}
+              onChange={(e) => {
+                setNewMessage(e.target.value);
+              }}
+            />
+          </form>
         </Grid>
         <Grid>
-          <Grid>
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (newMessage !== "") {
-                  messageCollection.doc(uuidv4()).set({
-                    user: user.uid,
-                    message: newMessage,
-                    timestamp: Math.floor(Date.now() / 1000),
-                  });
-                  setNewMessage("");
-                }
-              }}
-            >
-              Submit
-            </Button>
-          </Grid>
+          <SendRounded
+            fontSize="large"
+            onClick={handleSubmit}
+            className={styles.sendButton}
+            style={{ color: "pink" }}
+          />
         </Grid>
       </Grid>
 
