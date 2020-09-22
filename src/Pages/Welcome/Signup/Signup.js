@@ -20,24 +20,14 @@ const Signup = () => {
 
   useEffect(getDogImage, []);
 
-  async function getDogImage() {
-    let dogImage = await fetchDogImage();
-    setDog(dogImage);
+  function getDogImage() {
+    async function run() {
+      let dogImage = await fetchDogImage();
+      setDog(dogImage);
+    }
+    run();
   }
 
-  const checkDog = (dogImage) => {
-    let split = dogImage.split(".");
-    let allowed = ["png", "jpg", "jpeg", "PNG", "JPG", "JPEG"];
-    let x = 0;
-    let approved = false;
-    while (x < allowed.length) {
-      if (split.includes(allowed[x])) {
-        approved = true;
-      }
-      x = x + 1;
-    }
-    return approved;
-  };
   const fetchDogImage = async () => {
     let response = "";
     let dogImage = "";
@@ -56,6 +46,20 @@ const Signup = () => {
       }
     }
     return dogImage;
+  };
+
+  const checkDog = (dogImage) => {
+    let split = dogImage.split(".");
+    let allowed = ["png", "jpg", "jpeg", "PNG", "JPG", "JPEG"];
+    let x = 0;
+    let approved = false;
+    while (x < allowed.length) {
+      if (split.includes(allowed[x])) {
+        approved = true;
+      }
+      x = x + 1;
+    }
+    return approved;
   };
 
   // onChange function
