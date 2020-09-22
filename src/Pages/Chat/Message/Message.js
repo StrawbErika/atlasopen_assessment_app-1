@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./style.module.scss";
 import { Grid, Paper, Avatar } from "@material-ui/core";
-
-export default function Message({ user, message, messageStyle }) {
+// Tooltip
+export default function Message({ user, message, messageStyle, showAvatar }) {
   // TODO: Check if prev message same user, if yes, dont show user
   const reformatDate = () => {
     const dateObject = new Date(message.timestamp * 1000);
@@ -23,17 +23,33 @@ export default function Message({ user, message, messageStyle }) {
         spacing={1}
       >
         <Grid item xs={12}>
-          <p className={styles.displayName}>{user.displayName}</p>
+          <p
+            className={
+              showAvatar
+                ? styles.displayName
+                : `${styles.displayName} ${styles.invisible}`
+            }
+          >
+            {user.displayName}
+          </p>
         </Grid>
+        {/* <Tooltip title={reformatDate()}> */}
         <Grid item xs={12} className={styles.wholeMessage}>
           <Grid container direction={messageStyle.rowDirection}>
-            <div
-              // className={styles.imgContainer}
-              style={{ [messageStyle.marginDirection]: "10px" }}
-            >
-              <Avatar src={user.photoURL} alt={user.displayName} />
-              {/* <img src={user.photoURL} alt={user.displayName} /> */}
-            </div>
+            {showAvatar ? (
+              <div style={{ [messageStyle.marginDirection]: "10px" }}>
+                <Avatar src={user.photoURL} alt={user.displayName} />
+              </div>
+            ) : (
+              <div
+                style={{
+                  [messageStyle.marginDirection]: "10px",
+                  opacity: "0",
+                }}
+              >
+                <Avatar src={user.photoURL} alt={user.displayName} />
+              </div>
+            )}
             <div
               style={{
                 display: "flex",
@@ -48,10 +64,12 @@ export default function Message({ user, message, messageStyle }) {
               >
                 {message.message}
               </Paper>
-              <p className={styles.timestamp}>{reformatDate()}</p>
+
+              <p className={styles.timestamp}> {reformatDate()}</p>
             </div>
           </Grid>
         </Grid>
+        {/* </Tooltip> */}
       </Grid>
     </div>
   );

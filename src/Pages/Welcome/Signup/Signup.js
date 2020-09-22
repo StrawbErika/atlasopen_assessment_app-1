@@ -18,9 +18,10 @@ const Signup = () => {
     error: "",
   });
 
-  useEffect(() => {
-    getDogImage();
-  }, [getDogImage]);
+  useEffect(getDogImage, []);
+  // useEffect(() => {
+  //   getDogImage();
+  // }, [getDogImage]);
 
   async function getDogImage() {
     let dogImage = await fetchDogImage();

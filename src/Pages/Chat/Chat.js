@@ -16,7 +16,11 @@ export default function Chat() {
   const [newMessage, setNewMessage] = useState("");
 
   const messageCollection = useFirestore().collection("messages");
-  const msg = useFirestoreCollectionData(messageCollection);
+  const msg = _.sortBy(
+    useFirestoreCollectionData(messageCollection),
+    "timestamp"
+  ).reverse();
+
   const userCollection = useFirestore().collection("users");
   const userDB = useFirestoreCollectionData(userCollection);
   useEffect(() => {
@@ -63,43 +67,51 @@ export default function Chat() {
           <div> No messages here! </div>
         ) : (
           <Grid container direction="column-reverse">
-            {_.sortBy(msg, "timestamp")
-              .reverse()
-              .map((message, index) => {
-                if (message.user === user.uid) {
-                  return (
-                    <Grid key={index}>
-                      <Message
-                        user={user}
-                        message={message}
-                        messageStyle={{
-                          rowDirection: "row-reverse",
-                          alignment: "flex-end",
-                          marginDirection: "marginLeft",
-                          color: " #B7F8DB",
-                        }}
-                      />
-                    </Grid>
-                  );
-                } else {
-                  return (
-                    <Grid key={index}>
-                      <Message
-                        user={
-                          userDB.filter((users) => users.id === message.user)[0]
-                        }
-                        message={message}
-                        messageStyle={{
-                          rowDirection: "row",
-                          alignment: "flex-start",
-                          marginDirection: "marginRight",
-                          color: "#f1f0f0",
-                        }}
-                      />
-                    </Grid>
-                  );
-                }
-              })}
+            {msg.map((message, index) => {
+              if (message.user === user.uid) {
+                return (
+                  <Grid key={index}>
+                    <Message
+                      user={user}
+                      message={message}
+                      showAvatar={
+                        msg[index + 1]
+                          ? msg[index + 1].user !== msg[index].user
+                          : true
+                      }
+                      messageStyle={{
+                        rowDirection: "row-reverse",
+                        alignment: "flex-end",
+                        marginDirection: "marginLeft",
+                        color: " #B7F8DB",
+                      }}
+                    />
+                  </Grid>
+                );
+              } else {
+                return (
+                  <Grid key={index}>
+                    <Message
+                      user={
+                        userDB.filter((users) => users.id === message.user)[0]
+                      }
+                      message={message}
+                      showAvatar={
+                        msg[index + 1]
+                          ? msg[index + 1].user !== msg[index].user
+                          : true
+                      }
+                      messageStyle={{
+                        rowDirection: "row",
+                        alignment: "flex-start",
+                        marginDirection: "marginRight",
+                        color: "#f1f0f0",
+                      }}
+                    />
+                  </Grid>
+                );
+              }
+            })}
           </Grid>
         )}
       </div>
