@@ -19,11 +19,8 @@ export default function Dashboard() {
             <p>Dashboard</p>
           </Grid>
           <Grid>
-            <Link
-              style={{ textDecoration: "none", color: "#B7F8DB" }}
-              to="/chat"
-            >
-              <p>Chat Page</p>
+            <Link style={{ textDecoration: "none" }} to="/chat">
+              <p className={styles.link}>Chat Page</p>
             </Link>
           </Grid>
         </Grid>

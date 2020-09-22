@@ -5,19 +5,20 @@ import styles from "./style.module.scss";
 import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 export default function Welcome() {
-  const [value, setValue] = useState("login");
+  const [selected, setSelected] = useState("login");
   const handleChange = (event, newValue) => {
-    console.log(newValue);
-    setValue(newValue);
+    setSelected(newValue);
   };
-
-  console.log(value);
   return (
     <div className={styles.welcome}>
+      <div className={styles.textContainer}>
+        <p>Welcome to</p>
+        <p className={styles.chatterbox}> Chatterbox</p>
+      </div>
       <div className={styles.tab}>
         <Paper square style={{ backgroundColor: "#B7F8DB" }}>
           <Tabs
-            value={value}
+            value={selected}
             onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"
@@ -27,7 +28,12 @@ export default function Welcome() {
             <Tab label="Signup" value={"signup"} index={1} />
           </Tabs>
         </Paper>
-        {value === "login" ? <Login /> : <Signup />}
+        <div hidden={selected !== "login"}>
+          <Login />
+        </div>
+        <div hidden={selected !== "signup"}>
+          <Signup />{" "}
+        </div>
       </div>
     </div>
   );

@@ -23,6 +23,7 @@ export default function Chat() {
 
   const userCollection = useFirestore().collection("users");
   const userDB = useFirestoreCollectionData(userCollection);
+
   useEffect(() => {
     updateScroll();
   }, []);
@@ -53,11 +54,8 @@ export default function Chat() {
             <p>Chat page of {user.displayName}</p>
           </Grid>
           <Grid>
-            <Link
-              style={{ textDecoration: "none", color: "#B7F8DB" }}
-              to="/dashboard"
-            >
-              <p>Dashboard</p>
+            <Link style={{ textDecoration: "none" }} to="/dashboard">
+              <p className={styles.link}>Dashboard</p>
             </Link>
           </Grid>
         </Grid>

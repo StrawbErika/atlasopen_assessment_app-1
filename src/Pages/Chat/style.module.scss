@@ -5,7 +5,12 @@
       font-size: 35px;
       margin: 0px;
     }
-    p:hover {
+    .link {
+      background: -webkit-linear-gradient(#b7f8db, #6200ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .link:hover {
       color: black;
     }
     @media only screen and (max-width: 425px) {
