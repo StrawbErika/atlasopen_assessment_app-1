@@ -10,6 +10,8 @@ import "firebase/auth";
 
 const Logout = () => {
   const firebase = useFirebaseApp();
+
+  //if responded yes to prompt, will close prompt and signout
   const handleLogout = () => {
     setOpen(false);
     firebase.auth().signOut();
@@ -32,6 +34,8 @@ const Logout = () => {
       >
         Log Out
       </Button>
+
+      {/* dialog to confirm if will log out */}
       <Dialog
         open={open}
         onClose={handleClose}

@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useFirebaseApp } from "reactfire";
 import { TextField, Button } from "@material-ui/core";
 import styles from "./style.module.scss";
-
 import "firebase/auth";
 
-//TODO convert this to a functional component to use firebase hooks
 export default function Login() {
   const firebase = useFirebaseApp();
   const [user, setUser] = useState({
@@ -14,7 +12,7 @@ export default function Login() {
     error: "",
   });
 
-  // onChange function
+  // input handlers
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -22,12 +20,16 @@ export default function Login() {
       error: "",
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      //login
       const signedIn = await firebase
         .auth()
         .signInWithEmailAndPassword(user.email, user.password);
+
+      //checks if email has been verified
       if (!signedIn.user.emailVerified) {
         setUser({
           ...user,
@@ -41,6 +43,7 @@ export default function Login() {
       });
     }
   };
+
   return (
     <div className={styles.login}>
       <p>Log In</p>

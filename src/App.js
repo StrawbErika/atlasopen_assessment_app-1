@@ -4,7 +4,6 @@ import Chat from "./Pages/Chat/Chat";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { useUser } from "reactfire";
 import { Helmet } from "react-helmet";
-
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -14,12 +13,12 @@ import {
 } from "react-router-dom";
 import welcome from "./Assets/Images/welcome.png";
 
-//TODO: Add stats dashboard
 function App() {
   const user = useUser();
 
   return (
     <div>
+      {/* Metadata */}
       <Helmet>
         <meta charSet="utf-8" />
         <title>Chatterbox </title>

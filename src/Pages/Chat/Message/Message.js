@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./style.module.scss";
 import { Grid, Paper, Avatar } from "@material-ui/core";
-// Tooltip
 export default function Message({ user, message, messageStyle, showAvatar }) {
-  // TODO: Check if prev message same user, if yes, dont show user
   const reformatDate = () => {
     const dateObject = new Date(message.timestamp * 1000);
     const splitDate = dateObject.toLocaleString().split(" "); //2019-12-9 10:30:15
@@ -33,7 +31,6 @@ export default function Message({ user, message, messageStyle, showAvatar }) {
             {user.displayName}
           </p>
         </Grid>
-        {/* <Tooltip title={reformatDate()}> */}
         <Grid item xs={12} className={styles.wholeMessage}>
           <Grid container direction={messageStyle.rowDirection}>
             {showAvatar ? (
@@ -69,7 +66,6 @@ export default function Message({ user, message, messageStyle, showAvatar }) {
             </div>
           </Grid>
         </Grid>
-        {/* </Tooltip> */}
       </Grid>
     </div>
   );

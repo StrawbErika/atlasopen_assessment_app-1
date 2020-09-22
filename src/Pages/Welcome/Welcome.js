@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Paper } from "@material-ui/core";
 import styles from "./style.module.scss";
-
 import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
+
+// Welcome page has renders login and signup depending on the tab that is selected
 export default function Welcome() {
   const [selected, setSelected] = useState("login");
   const handleChange = (event, newValue) => {
     setSelected(newValue);
   };
+
   return (
     <div className={styles.welcome}>
       <div className={styles.textContainer}>

@@ -18,6 +18,7 @@ const Signup = () => {
     error: "",
   });
 
+  // when signup renders, fetch a dogImage
   useEffect(getDogImage, []);
 
   function getDogImage() {
@@ -28,6 +29,7 @@ const Signup = () => {
     run();
   }
 
+  // Fetches dogImage using axios
   const fetchDogImage = async () => {
     let response = "";
     let dogImage = "";
@@ -48,6 +50,7 @@ const Signup = () => {
     return dogImage;
   };
 
+  // Checks if dogImage is in the proper format, and not a video
   const checkDog = (dogImage) => {
     let split = dogImage.split(".");
     let allowed = ["png", "jpg", "jpeg", "PNG", "JPG", "JPEG"];
@@ -62,7 +65,7 @@ const Signup = () => {
     return approved;
   };
 
-  // onChange function
+  // input handlers
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -76,14 +79,18 @@ const Signup = () => {
     e.preventDefault();
 
     try {
+      //creates account
       const createdUser = await firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password);
+
       // Update the nickname
       createdUser.user.updateProfile({
         displayName: user.nickname,
         photoURL: dog,
       });
+
+      //sends email verification
       await createdUser.user.sendEmailVerification();
       setUser({
         ...user,
