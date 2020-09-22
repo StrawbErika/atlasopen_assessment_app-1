@@ -62,7 +62,7 @@ export default function Chat() {
       </div>
       <div className={styles.chatContainer} id="chat">
         {msg.length < 1 ? (
-          <div> No messages here! </div>
+          <div className={styles.empty}> No messages here! </div>
         ) : (
           <Grid container direction="column-reverse">
             {msg.map((message, index) => {

@@ -31,7 +31,10 @@ function App() {
         />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={welcome} />
-        {/* <meta property="og:url" content="https://erikanepomuceno.netlify.app" /> */}
+        <meta
+          property="og:url"
+          content="https://assessment-app-41d0b.web.app"
+        />
         <meta property="og:image:width" content="1835" />
         <meta property="og:image:height" content="948" />
         <meta property="twitter:image" content={welcome} />
